@@ -1,5 +1,7 @@
+import math
 import os
 
+import numpy
 import pygame
 
 
@@ -19,6 +21,19 @@ class Ball:
         self.prior.append(
             pygame.Rect(x - 5 + self.length * self.step, y - 5 + self.length * self.step, 10, 10)
         )
+        self.bloop_sound = pygame.mixer.Sound(os.path.join(os.path.dirname(__file__), "bloop.wav"))
+
+    def make_sound(self, frequency_l, frequency_r):
+        sample_rate = 44100
+        duration_in_samples = 44100
+        max_sample = 2**9 - 1
+        buf = numpy.zeros((duration_in_samples, 2), dtype=numpy.int16)
+        for s in range(duration_in_samples):
+            t = float(s) / sample_rate
+            buf[s][0] = int(max_sample * math.sin(2.0 * math.pi * t * frequency_l))
+            buf[s][1] = int(max_sample * math.sin(2.0 * math.pi * t * frequency_r))
+        sound = pygame.sndarray.make_sound(buf)
+        return sound
 
     def turn_left(self):
         self.x_dir = -self.step
@@ -47,6 +62,7 @@ class Ball:
             redo = True
         if redo:
             move = head.move(self.x_dir, self.y_dir)
+            self.bloop_sound.play()
         head.update(head.x + 5 - 3, head.y + 5 - 3, 6, 6)
         self.prior.append(move)
         self.rect = move
@@ -81,7 +97,6 @@ class Bounce:
     """
 
     def __init__(self):
-        self.ball = Ball()
         self.speed = 10
         self.pause = 0.0
 
@@ -94,9 +109,10 @@ class Bounce:
 
     def init(self):
         pygame.init()
+        self.ball = Ball()
         self.screen = pygame.display.set_mode((640,480))
         self.clock = pygame.time.Clock()
-        self.munch = pygame.mixer.Sound(os.path.join(os.path.dirname(__file__),"munch.wav"))
+        self.munch_sound = pygame.mixer.Sound(os.path.join(os.path.dirname(__file__), "munch.wav"))
 
     def process_input(self):
         for event in pygame.event.get():
@@ -126,6 +142,7 @@ class Bounce:
         pygame.display.set_caption(f'Bounce (Speed {self.speed} , Length {int(self.ball.length)} , Highest {self.ball.highest})')
         self.screen.fill("purple")
         self.ball.draw(self.screen)
+        self.speed = min(90, max(10, int(self.ball.length) // 3))
 
     def render(self):
         pygame.display.flip()
@@ -133,7 +150,7 @@ class Bounce:
         if self.pause <= 0.0:
             if self.ball.collided >= 0:
                 self.pause = self.speed / 10.0
-                pygame.mixer.Sound.play(self.munch)
+                pygame.mixer.Sound.play(self.munch_sound)
 
 
 def main():
