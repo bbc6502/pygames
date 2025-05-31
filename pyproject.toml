@@ -3,8 +3,8 @@ requires = ["setuptools>=40.8.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "pygames"
-version = "0.0.2"
+name = "pygame-retro-games"
+version = "0.0.3"
 description = "PyGame Retro Games"
 readme = "README.md"
 license = {file = "LICENSE.txt"}

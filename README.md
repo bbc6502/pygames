@@ -8,7 +8,7 @@
     $ source .venv/bin/activate
 
     Install pygames
-    $ pip install --upgrade pygames
+    $ pip install --upgrade pygame-retro-games
 
 ## Games
 
