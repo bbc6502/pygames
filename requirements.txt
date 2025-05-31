@@ -1,0 +1,5 @@
+pygame>=2.6,<3.0
+setuptools>=40.8.0
+wheel
+build
+twine
