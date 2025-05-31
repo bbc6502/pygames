@@ -1,3 +1,4 @@
+import os
 
 import pygame
 
@@ -95,6 +96,7 @@ class Bounce:
         pygame.init()
         self.screen = pygame.display.set_mode((640,480))
         self.clock = pygame.time.Clock()
+        self.munch = pygame.mixer.Sound(os.path.join(os.path.dirname(__file__),"munch.wav"))
 
     def process_input(self):
         for event in pygame.event.get():
@@ -131,6 +133,7 @@ class Bounce:
         if self.pause <= 0.0:
             if self.ball.collided >= 0:
                 self.pause = self.speed / 10.0
+                pygame.mixer.Sound.play(self.munch)
 
 
 def main():

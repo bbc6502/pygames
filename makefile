@@ -30,5 +30,5 @@ bounce: .venv
 
 merge:
 	@git checkout main
-	@git merge 0.0.3
-	@git tag 0.0.3
+	@git merge 0.0.4
+	@git tag 0.0.4
