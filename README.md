@@ -4,11 +4,14 @@
 
     (Optional) Set up a virtual environment:
     $ pip3 install --upgrade virtualenv
-    $ python3 -m virtualenv .venv
-    $ source .venv/bin/activate
+    $ python3 -m virtualenv pygames
+    $ source pygames/bin/activate
 
     Install pygames
-    $ pip install --upgrade pygame-retro-games
+    $ pip3 install --upgrade pygame-retro-games
+
+    Run bounce
+    $ bounce
 
 ## Games
 
