@@ -30,5 +30,11 @@ bounce: .venv
 
 merge:
 	@git checkout main
-	@git merge 0.0.4
-	@git tag 0.0.4
+	@git merge 0.0.5
+	@git tag 0.0.5
+
+test-browser:
+	@.venv/bin/pygbag pygames/bounce
+
+archive-browser:
+	@.venv/bin/pygbag --archive pygames/bounce/main.py

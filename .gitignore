@@ -1,5 +1,8 @@
 .venv
 .idea
 dist
+build
 *.egg-info
 *.pyc
+*-pygbag.ogg
+*-pygbag.py

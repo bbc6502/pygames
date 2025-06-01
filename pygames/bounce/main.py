@@ -3,11 +3,17 @@ import os
 
 import numpy
 import pygame
+import asyncio
 
 
 class Ball:
 
-    def __init__(self, *, x=320, y=240, length=10):
+    def __init__(self, screen_width, screen_height):
+        self.screen_width = screen_width
+        self.screen_height = screen_height
+        x = self.screen_width // 2
+        y = self.screen_height // 2
+        length = 10
         self.step = 10
         self.x_dir = self.step
         self.y_dir = self.step
@@ -54,10 +60,10 @@ class Ball:
         head = self.prior[-1]
         move = head.move(self.x_dir, self.y_dir)
         redo = False
-        if not 0 <= move.x + move.width//2 <= 640:
+        if not 0 <= move.x + move.width//2 <= self.screen_width:
             self.x_dir = -self.x_dir
             redo = True
-        if not 0 <= move.y + move.height//2 <= 480:
+        if not 0 <= move.y + move.height//2 <= self.screen_height:
             self.y_dir = -self.y_dir
             redo = True
         if redo:
@@ -99,22 +105,24 @@ class Bounce:
     def __init__(self):
         self.speed = 10
         self.pause = 0.0
+        self.screen_width = 640
+        self.screen_height = 480
 
-    def run(self):
-        self.init()
-        while self.process_input():
-            self.update()
-            self.render()
+    async def run(self):
+        await self.init()
+        while await self.process_input():
+            await self.update()
+            await self.render()
         pygame.quit()
 
-    def init(self):
+    async def init(self):
         pygame.init()
-        self.ball = Ball()
-        self.screen = pygame.display.set_mode((640,480))
+        self.ball = Ball(self.screen_width, self.screen_height)
+        self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
         self.clock = pygame.time.Clock()
         self.munch_sound = pygame.mixer.Sound(os.path.join(os.path.dirname(__file__), "munch.wav"))
 
-    def process_input(self):
+    async def process_input(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return False
@@ -135,7 +143,7 @@ class Bounce:
                     self.speed = max(10, self.speed - 1)
         return True
 
-    def update(self):
+    async def update(self):
         self.pause = max(0.0, self.pause - 0.1)
         if self.pause <= 0.0:
             self.ball.move()
@@ -144,18 +152,23 @@ class Bounce:
         self.ball.draw(self.screen)
         self.speed = min(90, max(10, int(self.ball.length) // 3))
 
-    def render(self):
+    async def render(self):
         pygame.display.flip()
         self.clock.tick(self.speed)
+        await asyncio.sleep(0)
         if self.pause <= 0.0:
             if self.ball.collided >= 0:
                 self.pause = self.speed / 10.0
                 pygame.mixer.Sound.play(self.munch_sound)
 
 
-def main():
-    Bounce().run()
+async def main():
+    await Bounce().run()
+
+
+def run():
+    asyncio.run(main())
 
 
 if __name__ == '__main__':
-    main()
+    run()

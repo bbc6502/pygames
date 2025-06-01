@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pygame-retro-games"
-version = "0.0.4"
+version = "0.0.5"
 description = "PyGame Retro Games"
 readme = "README.md"
 license = {file = "LICENSE.txt"}
@@ -35,7 +35,7 @@ keywords = ["games"]
 "Bug Tracker" = "https://github.com/bbc6502/pygames/issues"
 
 [project.scripts]
-bounce = "pygames.bounce:main"
+bounce = "pygames.bounce.main:run"
 
 [tool.setuptools]
 packages = ["pygames"]
