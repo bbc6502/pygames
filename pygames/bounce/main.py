@@ -27,7 +27,7 @@ class Ball:
         self.prior.append(
             pygame.Rect(x - 5 + self.length * self.step, y - 5 + self.length * self.step, 10, 10)
         )
-        self.bloop_sound = pygame.mixer.Sound(os.path.join(os.path.dirname(__file__), "bloop.wav"))
+        self.bloop_sound = pygame.mixer.Sound(os.path.join(os.path.dirname(__file__), "bloop.ogg"))
 
     def make_sound(self, frequency_l, frequency_r):
         sample_rate = 44100
@@ -68,7 +68,7 @@ class Ball:
             redo = True
         if redo:
             move = head.move(self.x_dir, self.y_dir)
-            self.bloop_sound.play()
+            self.bloop_sound.play().set_volume(1.0)
         head.update(head.x + 5 - 3, head.y + 5 - 3, 6, 6)
         self.prior.append(move)
         self.rect = move
@@ -120,7 +120,10 @@ class Bounce:
         self.ball = Ball(self.screen_width, self.screen_height)
         self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
         self.clock = pygame.time.Clock()
-        self.munch_sound = pygame.mixer.Sound(os.path.join(os.path.dirname(__file__), "munch.wav"))
+        self.munch_sound = pygame.mixer.Sound(os.path.join(os.path.dirname(__file__), "munch.ogg"))
+        pygame.mixer.music.load(os.path.join(os.path.dirname(__file__), "music.ogg"))
+        pygame.mixer.music.play(-1)
+        pygame.mixer.music.set_volume(0.2)
 
     async def process_input(self):
         for event in pygame.event.get():
@@ -159,7 +162,7 @@ class Bounce:
         if self.pause <= 0.0:
             if self.ball.collided >= 0:
                 self.pause = self.speed / 10.0
-                pygame.mixer.Sound.play(self.munch_sound)
+                pygame.mixer.Sound.play(self.munch_sound).set_volume(1.0)
 
 
 async def main():

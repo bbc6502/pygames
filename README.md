@@ -28,6 +28,10 @@
 
     Left/Right/Up/Down Arrow Keys to change direction.
 
-    +/- to change the speed.
-
     Escape to exit the game.
+
+#### Music
+
+    Background Music    - Music by Mykola Sosin from Pixabay
+    Tail Munch          - Sound Effect by freesound_community from Pixabay
+    Bloop               - Sound Effect by floraphonic from Pixabay

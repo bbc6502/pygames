@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pygame-retro-games"
-version = "0.0.5"
+version = "0.0.6"
 description = "PyGame Retro Games"
 readme = "README.md"
 license = {file = "LICENSE.txt"}
@@ -41,4 +41,4 @@ bounce = "pygames.bounce.main:run"
 packages = ["pygames"]
 
 [tool.setuptools.package-data]
-pygames = ["*.wav"]
+pygames = ["*.ogg"]
