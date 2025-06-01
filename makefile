@@ -12,6 +12,8 @@ requirements: .venv
 clean:
 	@echo Clean prior builds
 	@rm -fr dist build
+	@find pygames -depth -type d -name build -exec rm -fr {} \;
+	@find pygames -depth -type f -name '*-pygbag.py' -exec rm -f {} \;
 
 build: clean .venv
 	@echo Build PyGames
@@ -30,8 +32,8 @@ bounce: .venv
 
 merge:
 	@git checkout main
-	@git merge 0.0.6
-	@git tag 0.0.6
+	@git merge 0.0.7
+	@git tag 0.0.7
 
 test-browser:
 	@.venv/bin/pygbag pygames/bounce
