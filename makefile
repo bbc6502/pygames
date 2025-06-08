@@ -9,6 +9,9 @@ requirements: .venv
 	@.venv/bin/python -m pip install --upgrade -r requirements.txt
 	@.venv/bin/python -m pip install -e .
 
+editable: .venv
+	@.venv/bin/python -m pip install -e .
+
 clean:
 	@echo Clean prior builds
 	@rm -fr dist build
@@ -32,8 +35,8 @@ bounce: .venv
 
 merge:
 	@git checkout main
-	@git merge 0.0.7
-	@git tag 0.0.7
+	@git merge 0.0.8
+	@git tag 0.0.8
 
 test-browser:
 	@.venv/bin/pygbag pygames/bounce

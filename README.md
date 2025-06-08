@@ -13,6 +13,9 @@
     Run bounce
     $ bounce
 
+    Run invaders
+    $ invaders
+
 ## Games
 
 ### Bounce
@@ -38,3 +41,31 @@
     Background Music    - Music by Mykola Sosin from Pixabay
     Tail Munch          - Sound Effect by freesound_community from Pixabay
     Bloop               - Sound Effect by floraphonic from Pixabay
+
+### Invaders
+
+    Don't let the invaders land on earth.
+    See how many points you can accumulate.
+
+#### Run
+
+    $ python -m pygames invaders
+    or
+    $ invaders
+
+#### Keys
+
+    Left or Z = Move Left
+    Right or X = Move Right
+    Up or / = Fire
+    P = Pause / Resume
+    L = Low Motion / Normal Motion
+    + or - = Volume Up or Volume Down
+
+    Escape to exit the game.
+
+#### Music
+
+    Laser               - Sound Effect by Ahmed Abdulaal from Pixabay
+    Game Over           - Sound Effect by freesound_community from Pixabay
+    Alien               - Sound Effect by Luca Di Alessandro from Pixabay

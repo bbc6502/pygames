@@ -4,10 +4,11 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pygame-retro-games"
-version = "0.0.7"
+version = "0.0.8"
 description = "PyGame Retro Games"
 readme = "README.md"
-license = {file = "LICENSE.txt"}
+license = "MIT"
+license-files = ["LICENSE.txt"]
 requires-python = ">=3.11"
 dependencies = [
     "pygame>=2.6,<3.0",
@@ -15,7 +16,6 @@ dependencies = [
 ]
 classifiers = [
     "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Development Status :: 3 - Alpha",
     "Natural Language :: English",
@@ -36,9 +36,11 @@ keywords = ["games"]
 
 [project.scripts]
 bounce = "pygames.bounce.main:run"
+invaders = "pygames.invaders.main:run"
 
 [tool.setuptools]
-packages = ["pygames", "pygames.bounce"]
+packages = ["pygames", "pygames.bounce", "pygames.invaders"]
 
 [tool.setuptools.package-data]
 "pygames.bounce" = ["*.ogg"]
+"pygames.invaders" = ["*.ogg", "*.png"]
